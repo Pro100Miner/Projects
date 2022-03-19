@@ -1,0 +1,41 @@
+#include <iostream>
+#include <stack>
+#include <string>
+using namespace std;
+
+int top[2]{ -1, -1 };
+
+void Push(int value, int* a, int i) {
+	int index = top[i]++;
+	a[top[i]] = value;
+}
+int Pop(int* a, int index) {
+	int x = a[top[index]];
+	a[top[index]] = 0;
+	top[index]--;
+	return x;
+}
+
+bool Size(int* a, int index) {
+	return top[index] + 1;
+}
+
+int main()
+{
+	int s1[5];
+	int s2[5];
+	int value;
+	cin >> value;
+	while (value != 0) {
+		Push(value, s1, 0);
+		cin >> value;
+	}
+	while (Size(s1, 0) != 0) {
+		Push(Pop(s1, 0), s2, 1);
+		cout << s2[top[1]] << " ";
+	}
+	cout << endl;
+	while (Size(s2, 1) != 0) {
+		cout << Pop(s2, 1) << " ";
+	}
+}
